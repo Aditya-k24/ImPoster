@@ -11,16 +11,18 @@ dotenv.config();
 connectDB();
 
 
-const app = express()
+const app = express();
 
 //middle wares
 
-app.use(express.json())
-app.use(morgan('dev'))
+app.use(express.json());
+app.use(morgan('dev'));
 
+//route
+app.use('/api/posters',require('./routes/posterRoutes'));
 app.get('/',(req,res)=>{
     res.send("<h1>Hey there new data is here</h1>")
-})
+});
 
 const port = process.env.PORT || 8080
 app.listen(port, ()=>{
