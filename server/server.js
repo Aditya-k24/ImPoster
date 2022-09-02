@@ -20,7 +20,8 @@ app.use(morgan('dev'));
 
 //route
 app.use('/api/posters',require('./routes/posterRoutes'));
-app.get('/',(req,res)=>{
+app.use('/api/users',require("./routes/userRoute"));
+app.get('/',(req,res)=>{ 
     res.send("<h1>Hey there new data is here</h1>")
 });
 

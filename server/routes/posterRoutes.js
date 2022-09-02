@@ -10,7 +10,7 @@ router.get('/getAllPosters', async (req,res) => {
         const posters =await posterModel.find({})
         res.send(posters)
     }catch(e){
-        res,json({message:e})
+        res.json({message:e})
     }
 })
 
