@@ -2,7 +2,6 @@ const { json } = require('express');
 const express = require('express');
 const router = express.Router();
 const User = require('../models/userModel')
-console.log("post reached this one");
 
 router.post('/register',(req,res) =>{
     console.log("post reached");
@@ -20,6 +19,36 @@ router.post('/register',(req,res) =>{
         console.log("post not reached");
 
         res.status(400).json({
+            message:error
+        })
+    }
+})
+
+router.post('/login', async (req,res) =>{
+    console.log("post reached login");
+
+    const {email,password} = req.body;
+    try {
+        const user = await User.find({email,password})
+        if(user.length > 0){
+            const currentUser ={
+                name: user[0].name,
+                email:user[0].email,
+                isAdmin:user[0].isAdmin,
+                _id:user[0]._id
+            }
+
+            res.status(200).send(currentUser)
+        }else{
+            res.status(400).json({
+                message:'login failed'
+            })
+        }
+    } catch (error) { 
+        console.log("post login not reached");
+
+
+        res.status(404).json({
             message:error
         })
     }
